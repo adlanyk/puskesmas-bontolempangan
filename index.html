@@ -571,6 +571,33 @@
         .maklumat { background: var(--primary); padding: 16px 20px; border-radius: 60px; text-align: center; color: white; font-weight: 500; margin: 30px 0 10px; font-size: 0.95rem; }
         .maklumat i { margin-right: 10px; color: #ffd966; }
 
+        /* ===== BUTTON DOWNLOAD PDF ===== */
+        .btn-download-pdf {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #dc3545;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(220,53,69,0.3);
+        }
+        .btn-download-pdf:hover {
+            background: #c82333;
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(220,53,69,0.4);
+        }
+        .btn-download-pdf i {
+            font-size: 1.2rem;
+        }
+
         /* ===== FOOTER ===== */
         .footer { background: var(--primary-dark); color: #d4e3ed; padding: 35px 0 20px; margin-top: 40px; border-radius: 40px 40px 0 0; }
         .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 25px; }
@@ -721,8 +748,12 @@
                 instagram: '@Puskesmas_bontolempangan',
                 facebook: 'Puskesmasbontolempangan I',
                 year: '2026',
-                // ===== GANTI URL SURVEI DI SINI =====
                 survey_url: 'https://skm.go.id/share/instansi/1ad233bb-a825-4339-9ee9-633ecc601d10/2',
+                // ===== PATH FILE PDF STANDAR PELAYANAN =====
+                // Jika file PDF sejajar dengan index.html:
+                pdf_standar: 'Standar_Pelayanan_Puskesmas_Bontolempangan.pdf',
+                // Jika di dalam folder (misal: 'pdf/Standar_Pelayanan_Puskesmas_Bontolempangan.pdf')
+                // pdf_standar: 'pdf/Standar_Pelayanan_Puskesmas_Bontolempangan.pdf',
             },
             hero: {
                 title: 'Sehat Bersama Puskesmas Bontolempangan',
@@ -775,7 +806,7 @@
                     'Memelihara dan meningkatkan kesehatan perorangan, keluarga, masyarakat & lingkungan'
                 ],
                 nilai: ['Mutu Layanan', 'Insan terlatih', 'Nawa Cita', 'Asuhan terencana', 'Sehat jiwa', 'Akhlak mulia', 'Tutur santun', 'Aman mengemban misi'],
-                motto: '“Titian Anda Menuju Sehat”',
+                motto: '"Titian Anda Menuju Sehat"',
                 kepala_puskesmas: 'H. Suaib, SKM, S.Kep., Ns, M.Kes'
             },
             maklumat: 'MAKLUMAT PELAYANAN : DENGAN INI KAMI BERJANJI DAN MENYATAKAN SANGGUP UNTUK MELAKSANAKAN PELAYANAN SESUAI DENGAN STANDAR PELAYANAN SERTA MEMBERIKAN PELAYANAN SESUAI DENGAN KEWAJIBAN DAN AKAN MELAKUKAN PERBAIKAN SECARA TERUS MENERUS. APABILA TIDAK MENEPATI JANJI INI KAMI SIAP MENERIMA SANKSI SESUAI DENGAN KETENTUAN PERATURAN PERUNDANG-UNDANGAN DAN/ATAU MEMBERIKAN KOMPENSASI.',
@@ -809,6 +840,15 @@
             } catch (e) {
                 console.log('QR Code generated');
             }
+        }
+
+        // ===== FUNGSI BUKA PDF DI TAB BARU =====
+        function openPDF() {
+            // Menggunakan link langsung ke file PDF yang sudah ada
+            const pdfPath = config.site.pdf_standar;
+            
+            // Buka di tab baru dengan target _blank
+            window.open(pdfPath, '_blank');
         }
 
         function renderApp() {
@@ -867,9 +907,6 @@
                                 <span>Kategori <strong>${config.hero.ikm_category}</strong></span>
                             </div>
                             <div class="hero-stats">${heroStats}</div>
-
-                            <!-- ===== QR CODE SURVEI DI HERO ===== -->
-                          
                         </div>
                         <div class="hero-illustration">
                             <div class="illustration-container">
@@ -948,6 +985,14 @@
 
                     <h2 class="section-title" id="standar"><span>${config.standar_pelayanan.title}</span></h2>
                     <div class="divider"></div>
+                    
+                    <!-- TOMBOL BUKA PDF DI TAB BARU -->
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button onclick="openPDF()" class="btn-download-pdf">
+                            <i class="fas fa-file-pdf"></i> Lihat / Download PDF
+                        </button>
+                    </div>
+                    
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Klaster</th><th>Layanan</th><th>Waktu</th><th>Biaya</th></tr></thead>

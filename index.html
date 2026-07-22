@@ -571,7 +571,7 @@
         .maklumat { background: var(--primary); padding: 16px 20px; border-radius: 60px; text-align: center; color: white; font-weight: 500; margin: 30px 0 10px; font-size: 0.95rem; }
         .maklumat i { margin-right: 10px; color: #ffd966; }
 
-        /* ===== BUTTON DOWNLOAD PDF ===== */
+        /* ===== BUTTON BUKA PDF ===== */
         .btn-download-pdf {
             display: inline-flex;
             align-items: center;
@@ -596,6 +596,19 @@
         }
         .btn-download-pdf i {
             font-size: 1.2rem;
+        }
+
+        /* ===== BADGE PENGADUAN ===== */
+        .badge-pengaduan {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+            display: inline-block;
+            margin-left: 5px;
         }
 
         /* ===== FOOTER ===== */
@@ -749,11 +762,7 @@
                 facebook: 'Puskesmasbontolempangan I',
                 year: '2026',
                 survey_url: 'https://skm.go.id/share/instansi/1ad233bb-a825-4339-9ee9-633ecc601d10/2',
-                // ===== PATH FILE PDF STANDAR PELAYANAN =====
-                // Jika file PDF sejajar dengan index.html:
                 pdf_standar: 'Standar_Pelayanan_Puskesmas_Bontolempangan.pdf',
-                // Jika di dalam folder (misal: 'pdf/Standar_Pelayanan_Puskesmas_Bontolempangan.pdf')
-                // pdf_standar: 'pdf/Standar_Pelayanan_Puskesmas_Bontolempangan.pdf',
             },
             hero: {
                 title: 'Sehat Bersama Puskesmas Bontolempangan',
@@ -786,6 +795,8 @@
                 { icon: 'fa-procedures', name: 'Rawat Inap', desc: '24 jam' },
                 { icon: 'fa-baby-carriage', name: 'Persalinan', desc: '24 jam' },
                 { icon: 'fa-hand-holding-heart', name: 'Cek Kesehatan Gratis', desc: 'Program CKG' },
+                // ===== TAMBAHAN LAYANAN PENGADUAN =====
+                { icon: 'fa-bullhorn', name: 'Pengaduan Masyarakat', desc: 'Sampaikan keluhan, saran, atau masukan' },
             ],
             standar_pelayanan: {
                 title: '📋 Standar Pelayanan',
@@ -844,11 +855,23 @@
 
         // ===== FUNGSI BUKA PDF DI TAB BARU =====
         function openPDF() {
-            // Menggunakan link langsung ke file PDF yang sudah ada
             const pdfPath = config.site.pdf_standar;
-            
-            // Buka di tab baru dengan target _blank
             window.open(pdfPath, '_blank');
+        }
+
+        // ===== FUNGSI BUKA FORM PENGADUAN =====
+        function bukaPengaduan() {
+            // Bisa diarahkan ke WhatsApp, email, atau form Google
+            // Contoh: buka WhatsApp
+            const waNumber = config.site.phone.replace(/\D/g, '');
+            const message = encodeURIComponent('Halo, saya ingin menyampaikan pengaduan/keluhan/saran untuk Puskesmas Bontolempangan:');
+            window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+            
+            // Atau jika mau pakai email:
+            // window.location.href = `mailto:${config.site.email}?subject=Pengaduan%20Masyarakat%20Puskesmas%20Bontolempangan&body=`;
+            
+            // Atau jika mau pakai link ke form Google:
+            // window.open('https://forms.google.com/...', '_blank');
         }
 
         function renderApp() {
@@ -946,13 +969,26 @@
                 </div>
             `).join('');
 
-            let layananGrid = config.layanan.map(l => `
-                <div class="layanan-item">
-                    <i class="fas ${l.icon}"></i>
-                    <h5>${l.name}</h5>
-                    <small>${l.desc}</small>
-                </div>
-            `).join('');
+            // ===== LAYANAN UNGGULAN DENGAN PENGADUAN =====
+            let layananGrid = config.layanan.map(l => {
+                // Jika layanan adalah Pengaduan, tambahkan badge dan event klik
+                if (l.name === 'Pengaduan Masyarakat') {
+                    return `
+                        <div class="layanan-item" style="cursor:pointer; border-color: #e74c3c;" onclick="bukaPengaduan()">
+                            <i class="fas ${l.icon}" style="color:#e74c3c; background:#fde8e8;"></i>
+                            <h5>${l.name} <span class="badge-pengaduan">AKTIF</span></h5>
+                            <small>${l.desc}</small>
+                        </div>
+                    `;
+                }
+                return `
+                    <div class="layanan-item">
+                        <i class="fas ${l.icon}"></i>
+                        <h5>${l.name}</h5>
+                        <small>${l.desc}</small>
+                    </div>
+                `;
+            }).join('');
 
             let tableRows = config.standar_pelayanan.data.map(row => `
                 <tr>
@@ -986,7 +1022,7 @@
                     <h2 class="section-title" id="standar"><span>${config.standar_pelayanan.title}</span></h2>
                     <div class="divider"></div>
                     
-                    <!-- TOMBOL BUKA PDF DI TAB BARU -->
+                    <!-- TOMBOL BUKA PDF -->
                     <div style="display: flex; justify-content: flex-end;">
                         <button onclick="openPDF()" class="btn-download-pdf">
                             <i class="fas fa-file-pdf"></i> Lihat / Download PDF
@@ -1079,6 +1115,10 @@
                         <a href="mailto:${config.site.email}" class="btn-email"><i class="fas fa-envelope"></i> Email</a>
                         <a href="#" class="btn-ig"><i class="fab fa-instagram"></i> ${config.site.instagram}</a>
                         <a href="#" class="btn-fb"><i class="fab fa-facebook"></i> ${config.site.facebook}</a>
+                        <!-- Tombol Pengaduan Cepat -->
+                        <a href="#" onclick="bukaPengaduan(); return false;" style="background:#e74c3c; color:white; padding:8px 20px; border-radius:60px; text-decoration:none; font-weight:500; font-size:0.9rem; display:inline-flex; align-items:center; gap:8px;">
+                            <i class="fas fa-bullhorn"></i> Pengaduan
+                        </a>
                     </div>
                 </div>
 
@@ -1115,6 +1155,9 @@
                             <a href="#standar">Standar Pelayanan</a>
                             <a href="#survei">Survei</a>
                             <a href="#kontak">Kontak</a>
+                            <a href="#" onclick="bukaPengaduan(); return false;" style="color:#ff6b6b;">
+                                <i class="fas fa-bullhorn"></i> Pengaduan
+                            </a>
                         </div>
                         <div class="copy">${config.footer.copyright}</div>
                     </div>
@@ -1132,7 +1175,6 @@
 
         // ===== FLOATING QR CODE =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Buat floating button
             const floatContainer = document.createElement('div');
             floatContainer.className = 'floating-survey';
             floatContainer.innerHTML = `
@@ -1149,7 +1191,6 @@
             `;
             document.body.appendChild(floatContainer);
 
-            // Generate QR untuk floating setelah render
             setTimeout(() => {
                 generateQR('qrcode-float', config.site.survey_url, 140);
             }, 500);

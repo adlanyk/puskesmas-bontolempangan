@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>Puskesmas Bontolempangan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; }
+        body { background: #f0f7f2; color: #1e2b3b; line-height: 1.6; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+
+        /* ===== WARNA HIJAU ===== */
+        :root {
+            --primary: #1a7a3a;
+            --primary-dark: #0f5a2a;
+            --primary-light: #2e8b57;
+            --primary-bg: #e8f5e9;
+            --primary-gradient: linear-gradient(135deg, #1a7a3a 0%, #2e8b57 100%);
+        }
+
+        .header-top { background: var(--primary); color: white; padding: 14px 0; font-size: 0.9rem; }
+        .header-top .container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+        .header-top a { color: #d9f0e0; text-decoration: none; margin: 0 10px 0 0; }
+        .header-top a i { margin-right: 5px; color: #8fd4a8; }
+        .header-top .contact-icons a { display: inline-block; margin: 0 6px; }
+        .header-top .contact-icons i { font-size: 1.1rem; color: white; background: #2e8b57; padding: 6px 8px; border-radius: 30px; transition: 0.2s; }
+        .header-top .contact-icons i:hover { background: #3aa86a; transform: scale(1.05); }
+
+        .main-header { background: white; padding: 18px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .main-header .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+        .logo-area { display: flex; align-items: center; gap: 14px; }
+        .logo-text h1 { font-size: 1.7rem; color: var(--primary); font-weight: 700; letter-spacing: 1px; line-height: 1.2; }
+        .logo-text span { font-size: 0.85rem; color: #1e5a78; font-weight: 500; background: var(--primary-bg); padding: 2px 12px; border-radius: 30px; }
+        .nav-links { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+        .nav-links a { color: #1e3d4f; text-decoration: none; font-weight: 500; font-size: 1rem; padding: 5px 0; border-bottom: 2px solid transparent; transition: 0.15s; }
+        .nav-links a:hover { border-bottom-color: var(--primary); color: var(--primary); }
+
+        /* ===== HERO ===== */
+        .hero { 
+            background: var(--primary-gradient); 
+            color: white; 
+            padding: 45px 0 55px; 
+            border-radius: 0 0 40px 40px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 8px 20px rgba(26,122,58,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 350px;
+            height: 350px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero .container { 
+            display: flex; 
+            flex-wrap: wrap; 
+            align-items: center; 
+            justify-content: space-between; 
+            position: relative;
+            z-index: 1;
+        }
+        .hero-text { flex: 1 1 300px; }
+        .hero-text h2 { font-size: 2.4rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .hero-text p { font-size: 1.1rem; opacity: 0.9; max-width: 550px; margin-bottom: 20px; }
+
+        .hero-badge { 
+            background: rgba(255,255,255,0.15); 
+            padding: 12px 25px; 
+            border-radius: 60px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 15px; 
+            backdrop-filter: blur(4px); 
+            font-weight: 500; 
+            border: 1px solid rgba(255,255,255,0.2); 
+            margin-top: 10px;
+        }
+        .hero-badge .nilai { font-size: 1.9rem; font-weight: 800; color: #ffe484; }
+
+        .hero-stats { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+            background: rgba(255,255,255,0.08); 
+            padding: 20px 30px; 
+            border-radius: 70px; 
+            backdrop-filter: blur(4px); 
+            margin-top: 20px;
+        }
+        .hero-stats div { text-align: center; }
+        .hero-stats .angka { font-size: 1.8rem; font-weight: 700; display: block; }
+        .hero-stats .label { font-size: 0.85rem; opacity: 0.8; }
+
+        /* ===== ILUSTRASI GAMBAR ===== */
+        .hero-illustration {
+            flex: 0 0 380px;
+            min-width: 280px;
+            text-align: center;
+            position: relative;
+            padding: 20px 0;
+        }
+        .illustration-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 380px;
+        }
+        .building-scene {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .building {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 55%;
+            background: linear-gradient(180deg, #f0f7fa 0%, #d4e4ed 100%);
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+        }
+        .building::before {
+            content: '';
+            position: absolute;
+            top: -25%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 30%;
+            background: linear-gradient(180deg, #e8f0f5 0%, #c8dbe8 100%);
+            border-radius: 6px 6px 0 0;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        .building::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 55px solid transparent;
+            border-right: 55px solid transparent;
+            border-bottom: 50px solid #c0392b;
+            filter: drop-shadow(0 -2px 10px rgba(192,57,43,0.3));
+        }
+        .window {
+            position: absolute;
+            width: 15%;
+            height: 20%;
+            background: radial-gradient(ellipse at center, #87CEEB 0%, #4a90d9 100%);
+            border-radius: 4px 4px 8px 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: inset 0 -3px 10px rgba(0,0,0,0.1);
+        }
+        .window::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+        .window-1 { left: 8%; top: 25%; }
+        .window-2 { left: 30%; top: 25%; }
+        .window-3 { left: 52%; top: 25%; }
+        .window-4 { left: 74%; top: 25%; }
+        .window-5 { left: 18%; top: 55%; }
+        .window-6 { left: 40%; top: 55%; }
+        .window-7 { left: 62%; top: 55%; }
+        .door {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18%;
+            height: 28%;
+            background: linear-gradient(180deg, #8B6914 0%, #5C4033 100%);
+            border-radius: 8px 8px 0 0;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: inset -3px 0 10px rgba(0,0,0,0.2);
+        }
+        .door::before {
+            content: '';
+            position: absolute;
+            top: 35%;
+            right: 15%;
+            width: 12%;
+            height: 12%;
+            background: radial-gradient(circle, #ffd700 0%, #daa520 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        .tree {
+            position: absolute;
+            bottom: 20%;
+            width: 12%;
+            height: 35%;
+        }
+        .tree::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20%;
+            height: 20%;
+            background: linear-gradient(180deg, #8B6B4D 0%, #6B4F3A 100%);
+            border-radius: 4px;
+        }
+        .tree::after {
+            content: '';
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 85%;
+            background: radial-gradient(ellipse at center, #2e7d32 0%, #1b5e20 60%, #0d3d13 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 -10px 30px rgba(46,125,50,0.2);
+        }
+        .tree-left { left: 5%; }
+        .tree-right { right: 5%; }
+        .tree-left::after { transform: translateX(-50%) scale(1.1); }
+        .tree-right::after { transform: translateX(-50%) scale(0.9); }
+        .sun {
+            position: absolute;
+            top: 5%;
+            right: 8%;
+            width: 18%;
+            height: 18%;
+            background: radial-gradient(circle at center, #fff4a3 0%, #ffd700 40%, #f9a825 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(255,215,0,0.3), 0 0 120px rgba(255,215,0,0.1);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 60px rgba(255,215,0,0.3), 0 0 120px rgba(255,215,0,0.1); }
+            50% { box-shadow: 0 0 80px rgba(255,215,0,0.5), 0 0 160px rgba(255,215,0,0.2); }
+        }
+        .sun::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+        .cloud {
+            position: absolute;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50px;
+            backdrop-filter: blur(2px);
+        }
+        .cloud::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: 20%;
+            width: 50%;
+            height: 70%;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .cloud-1 { top: 10%; left: 5%; width: 25%; height: 12%; animation: float-cloud 12s ease-in-out infinite; }
+        .cloud-2 { top: 25%; right: 10%; width: 18%; height: 10%; animation: float-cloud 15s ease-in-out infinite reverse; }
+        .cloud-3 { bottom: 40%; left: 2%; width: 15%; height: 8%; animation: float-cloud 18s ease-in-out infinite 3s; }
+        @keyframes float-cloud {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(30px); }
+        }
+        .grass {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20%;
+            background: linear-gradient(180deg, rgba(46,125,50,0.3) 0%, rgba(27,94,32,0.2) 100%);
+            border-radius: 0 0 30px 30px;
+        }
+        .grass::before {
+            content: '🌿🌱🌿🌱🌿';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 1.2rem;
+            letter-spacing: 10px;
+            text-align: center;
+            opacity: 0.6;
+            filter: grayscale(0.2);
+        }
+        .badge-24jam {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ffe484 0%, #ffd54f 100%);
+            color: var(--primary-dark);
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 30px rgba(255,215,0,0.3);
+            white-space: nowrap;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .badge-24jam i { margin-right: 8px; color: #c0392b; }
+
+        /* ===== QUICK CARDS ===== */
+        .quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0 40px; }
+        .quick-card { background: white; padding: 20px 18px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: 0.2s; border-left: 5px solid var(--primary); }
+        .quick-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .quick-card i { font-size: 2rem; color: var(--primary); margin-bottom: 8px; }
+        .quick-card h4 { font-size: 1.1rem; margin-bottom: 4px; }
+        .quick-card p { font-size: 0.9rem; color: #3b5e74; }
+
+        /* ===== SECTION ===== */
+        .section-title { font-size: 1.9rem; font-weight: 700; color: var(--primary-dark); margin: 45px 0 20px; position: relative; }
+        .section-title span { background: var(--primary-bg); padding: 0 12px; border-radius: 30px; }
+        .divider { width: 70px; height: 4px; background: var(--primary); border-radius: 10px; margin: 8px 0 20px; }
+
+        /* ===== LAYANAN ===== */
+        .layanan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px; margin: 20px 0 25px; }
+        .layanan-item { background: white; padding: 22px 12px; border-radius: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e7f0e8; transition: 0.15s; }
+        .layanan-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(26,122,58,0.08); border-color: var(--primary-light); }
+        .layanan-item i { font-size: 2.2rem; color: var(--primary); background: var(--primary-bg); padding: 12px; border-radius: 60px; margin-bottom: 10px; }
+        .layanan-item h5 { font-weight: 600; color: #153e54; }
+        .layanan-item small { display: block; color: #456d84; font-size: 0.75rem; }
+
+        /* ===== TABEL ===== */
+        .table-wrap { background: white; border-radius: 24px; padding: 5px 5px 0 5px; overflow-x: auto; box-shadow: 0 4px 16px rgba(0,0,0,0.04); margin: 20px 0 30px; }
+        .table-wrap table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 700px; }
+        .table-wrap th { background: var(--primary-bg); color: var(--primary-dark); padding: 14px 12px; text-align: left; font-weight: 600; }
+        .table-wrap td { padding: 12px; border-bottom: 1px solid #e6eef3; vertical-align: top; }
+        .table-wrap tr:last-child td { border-bottom: none; }
+
+        /* ===== VISI MISI ===== */
+        .visi-misi { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; padding: 30px 25px; border-radius: 30px; box-shadow: 0 4px 14px rgba(0,0,0,0.03); margin: 30px 0; }
+        .visi-misi h4 { color: var(--primary); font-size: 1.4rem; margin-bottom: 10px; }
+        .visi-misi ul { list-style: none; padding-left: 0; }
+        .visi-misi ul li { padding: 6px 0 6px 28px; position: relative; }
+        .visi-misi ul li::before { content: "✓"; color: var(--primary); font-weight: 700; position: absolute; left: 0; }
+        .nilai-list { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 10px; }
+        .nilai-list span { background: var(--primary-bg); padding: 4px 16px; border-radius: 40px; font-weight: 500; font-size: 0.9rem; color: var(--primary); }
+
+        /* ===== MAKLUMAT ===== */
+        .maklumat { background: var(--primary); padding: 16px 20px; border-radius: 60px; text-align: center; color: white; font-weight: 500; margin: 30px 0 10px; font-size: 0.95rem; }
+        .maklumat i { margin-right: 10px; color: #ffd966; }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--primary-dark); color: #d4e3ed; padding: 35px 0 20px; margin-top: 40px; border-radius: 40px 40px 0 0; }
+        .footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 25px; }
+        .footer h5 { color: white; font-size: 1.1rem; margin-bottom: 12px; }
+        .footer a { color: #b8d6e5; text-decoration: none; display: block; padding: 3px 0; font-size: 0.9rem; }
+        .footer a i { margin-right: 8px; width: 18px; }
+        .footer a:hover { color: white; }
+        .footer .copy { grid-column: 1 / -1; text-align: center; border-top: 1px solid #2e8b57; padding-top: 20px; font-size: 0.8rem; opacity: 0.8; margin-top: 10px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .hero-text h2 { font-size: 1.8rem; }
+            .hero-stats { padding: 15px 20px; gap: 15px; }
+            .hero-illustration { flex: 0 0 100%; margin-top: 20px; }
+            .visi-misi { grid-template-columns: 1fr; }
+            .main-header .container { flex-direction: column; align-items: start; gap: 12px; }
+            .nav-links { flex-wrap: wrap; }
+            .badge-24jam { font-size: 0.75rem; padding: 8px 16px; }
+            .building { width: 70%; }
+            .building::after { border-left-width: 35px; border-right-width: 35px; border-bottom-width: 35px; }
+            .window { width: 12%; height: 15%; }
+        }
+        @media (max-width: 480px) {
+            .header-top .container { flex-direction: column; align-items: start; }
+        }
+
+        .btn-wa { background: #25D366; color: white; padding: 8px 16px; border-radius: 60px; text-decoration: none; font-weight: 500; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-wa:hover { background: #1ebd5e; }
+
+        /* ===== KONTAK CEPAT ===== */
+        .contact-fast {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            background: var(--primary-bg);
+            padding: 20px;
+            border-radius: 60px;
+            margin: 25px 0;
+        }
+        .contact-fast a {
+            padding: 8px 20px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .contact-fast a:hover { transform: scale(1.05); }
+        .btn-email { background: var(--primary); color: white; }
+        .btn-email:hover { background: var(--primary-dark); }
+        .btn-ig { background: #3f729b; color: white; }
+        .btn-fb { background: #1877f2; color: white; }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        const config = {
+            colors: { primary: '#1a7a3a', secondary: '#2e8b57' },
+            site: {
+                title: 'Puskesmas Bontolempangan',
+                tagline: 'Melayani Dengan Hati',
+                address: 'Dusun Lemoa, Desa Bontolempangan, Kec. Bontolempangan, Kab. Gowa',
+                phone: '0852-9956-3337',
+                email: 'pkmbontolempangan@yahoo.co.id',
+                instagram: '@Puskesmas_bontolempangan',
+                facebook: 'Puskesmasbontolempangan I',
+                year: '2026',
+            },
+            hero: {
+                title: 'Sehat Bersama Puskesmas Bontolempangan',
+                subtitle: 'Pelayanan kesehatan yang profesional, terjangkau, dan ramah untuk seluruh masyarakat Kecamatan Bontolempangan.',
+                ikm_score: '88,22',
+                ikm_category: 'BAIK',
+                stats: [
+                    { angka: '302', label: 'Responden' },
+                    { angka: '120', label: 'Laki-laki' },
+                    { angka: '182', label: 'Perempuan' },
+                ],
+                right_badge: {
+                    icon: 'fa-clock',
+                    title: 'UGD & Rawat Inap 24 Jam',
+                    subtitle: 'Termasuk hari libur'
+                }
+            },
+            quick_cards: [
+                { icon: 'fa-calendar-check', title: 'Rawat Jalan', desc: 'Senin-Sabtu 07.30-14.00 WITA' },
+                { icon: 'fa-ambulance', title: 'UGD 24 Jam', desc: 'Setiap hari, termasuk libur' },
+                { icon: 'fa-phone', title: 'Call Center', desc: '0852-9956-3337 (Kapus)' },
+                { icon: 'fa-envelope', title: 'Email', desc: 'pkmbontolempangan@yahoo.co.id' },
+            ],
+            layanan: [
+                { icon: 'fa-user-md', name: 'Poli Umum', desc: 'Dokter umum' },
+                { icon: 'fa-tooth', name: 'Poli Gigi', desc: 'Dokter gigi' },
+                { icon: 'fa-baby', name: 'KIA / KB', desc: 'Kesehatan Ibu & Anak' },
+                { icon: 'fa-flask', name: 'Laboratorium', desc: 'Pemeriksaan penunjang' },
+                { icon: 'fa-pills', name: 'Farmasi', desc: 'Obat & resep' },
+                { icon: 'fa-procedures', name: 'Rawat Inap', desc: '24 jam' },
+                { icon: 'fa-baby-carriage', name: 'Persalinan', desc: '24 jam' },
+                { icon: 'fa-hand-holding-heart', name: 'Cek Kesehatan Gratis', desc: 'Program CKG' },
+            ],
+            standar_pelayanan: {
+                title: '📋 Standar Pelayanan',
+                data: [
+                    { klaster: 'Manajemen', layanan: 'Pendaftaran (baru/lama)', waktu: '3 menit / 1 menit', biaya: 'Rp 15.000 (baru)' },
+                    { klaster: 'Ibu & Anak', layanan: 'ANC, KB, Imunisasi, IVA', waktu: '5-10 menit', biaya: 'Sesuai Perda' },
+                    { klaster: 'Dewasa & Lansia', layanan: 'Poli umum, SK sehat, rujukan', waktu: '5-10 menit', biaya: 'Rp 15.000' },
+                    { klaster: 'Penanggulangan Menular', layanan: 'Diare, ISPA, DBD, imunisasi', waktu: '10-30 menit', biaya: 'Sesuai Perda' },
+                    { klaster: 'Lintas Klaster', layanan: 'Gigi, UGD, Farmasi, Laboratorium', waktu: '10-30 menit', biaya: 'Sesuai Perda / gratis (CKG)' },
+                ],
+                note: '*Biaya sesuai Perda Gowa No.1 Tahun 2024, kecuali layanan gratis tertentu (CKG, konsultasi gizi/sanitasi).'
+            },
+            visi_misi: {
+                visi: 'Menuju Puskesmas Unggul dengan Pelayanan Berkualitas dan Profesional',
+                misi: [
+                    'Mendorong kemandirian hidup sehat bagi keluarga dan masyarakat',
+                    'Memelihara dan meningkatkan mutu, pemerataan, keterjangkauan pelayanan kesehatan',
+                    'Memelihara dan meningkatkan kesehatan perorangan, keluarga, masyarakat & lingkungan'
+                ],
+                nilai: ['Mutu Layanan', 'Insan terlatih', 'Nawa Cita', 'Asuhan terencana', 'Sehat jiwa', 'Akhlak mulia', 'Tutur santun', 'Aman mengemban misi'],
+                motto: '“Titian Anda Menuju Sehat”',
+                kepala_puskesmas: 'H. Suaib, SKM, S.Kep., Ns, M.Kes'
+            },
+            maklumat: 'MAKLUMAT PELAYANAN : Kami berjanji melayani sesuai standar, siap menerima sanksi jika tidak menepati janji.',
+            footer: {
+                address: 'Dusun Lemoa, Desa Bontolempangan<br>Kec. Bontolempangan, Kab. Gowa<br>Kode Pos 92176',
+                jam: 'Rawat Jalan: Senin-Sabtu 07.30-14.00 WITA<br>UGD & Rawat Inap: 24 jam',
+                kontak: [
+                    { icon: 'fa-phone', text: '0852-9956-3337 (Kapus)', link: 'tel:085299563337' },
+                    { icon: 'fa-envelope', text: 'pkmbontolempangan@yahoo.co.id', link: 'mailto:pkmbontolempangan@yahoo.co.id' },
+                    { icon: 'fa-instagram', text: '@Puskesmas_bontolempangan', link: '#' },
+                    { icon: 'fa-facebook', text: 'Puskesmasbontolempangan I', link: '#' },
+                ],
+                copyright: '&copy; 2026 UPT Puskesmas Bontolempangan - Dinas Kesehatan Kabupaten Gowa.<br> Berdasarkan Permen PANRB No.14 Tahun 2017.'
+            }
+        };
+
+        function renderApp() {
+            document.title = config.site.title;
+
+            const app = document.getElementById('app');
+
+            let headerTop = `
+                <div class="header-top">
+                    <div class="container">
+                        <div><i class="fas fa-map-pin"></i> ${config.site.address}</div>
+                        <div class="contact-icons">
+                            <a href="https://wa.me/${config.site.phone.replace(/\D/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="mailto:${config.site.email}"><i class="fas fa-envelope"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <span style="margin-left:8px;"><i class="fas fa-phone-alt"></i> ${config.site.phone}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            let mainHeader = `
+                <header class="main-header">
+                    <div class="container">
+                        <div class="logo-area">
+                            <div class="logo-text">
+                                <h1>${config.site.title}</h1>
+                                <span><i class="fas fa-heartbeat"></i> ${config.site.tagline}</span>
+                            </div>
+                        </div>
+                        <nav class="nav-links">
+                            <a href="#layanan">Layanan</a>
+                            <a href="#standar">Standar</a>
+                            <a href="#visi">Visi & Misi</a>
+                            <a href="#kontak">Kontak</a>
+                        </nav>
+                    </div>
+                </header>
+            `;
+
+            let heroStats = config.hero.stats.map(s => `
+                <div><span class="angka">${s.angka}</span><span class="label">${s.label}</span></div>
+            `).join('');
+
+            let hero = `
+                <section class="hero">
+                    <div class="container">
+                        <div class="hero-text">
+                            <h2>${config.hero.title}</h2>
+                            <p>${config.hero.subtitle}</p>
+                            <div class="hero-badge">
+                                <span><i class="fas fa-star" style="color:#ffe484;"></i> IKM 2025</span>
+                                <span class="nilai">${config.hero.ikm_score}</span>
+                                <span>Kategori <strong>${config.hero.ikm_category}</strong></span>
+                            </div>
+                            <div class="hero-stats">${heroStats}</div>
+                        </div>
+                        <div class="hero-illustration">
+                            <div class="illustration-container">
+                                <div class="building-scene">
+                                    <div class="sun"></div>
+                                    <div class="cloud cloud-1"></div>
+                                    <div class="cloud cloud-2"></div>
+                                    <div class="cloud cloud-3"></div>
+                                    <div class="tree tree-left"></div>
+                                    <div class="tree tree-right"></div>
+                                    <div class="building">
+                                        <div class="window window-1"></div>
+                                        <div class="window window-2"></div>
+                                        <div class="window window-3"></div>
+                                        <div class="window window-4"></div>
+                                        <div class="window window-5"></div>
+                                        <div class="window window-6"></div>
+                                        <div class="window window-7"></div>
+                                        <div class="door"></div>
+                                    </div>
+                                    <div class="grass"></div>
+                                </div>
+                                <div class="badge-24jam">
+                                    <i class="fas fa-clock"></i> ${config.hero.right_badge.title}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            let quickCards = config.quick_cards.map(c => `
+                <div class="quick-card">
+                    <i class="fas ${c.icon}"></i>
+                    <h4>${c.title}</h4>
+                    <p>${c.desc}</p>
+                </div>
+            `).join('');
+
+            let layananGrid = config.layanan.map(l => `
+                <div class="layanan-item">
+                    <i class="fas ${l.icon}"></i>
+                    <h5>${l.name}</h5>
+                    <small>${l.desc}</small>
+                </div>
+            `).join('');
+
+            let tableRows = config.standar_pelayanan.data.map(row => `
+                <tr>
+                    <td>${row.klaster}</td>
+                    <td>${row.layanan}</td>
+                    <td>${row.waktu}</td>
+                    <td>${row.biaya}</td>
+                </tr>
+            `).join('');
+
+            let misiList = config.visi_misi.misi.map(m => `<li>${m}</li>`).join('');
+            let nilaiList = config.visi_misi.nilai.map(n => `<span>${n}</span>`).join('');
+
+            let footerKontak = config.footer.kontak.map(k => `
+                <a href="${k.link}"><i class="fas ${k.icon}"></i> ${k.text}</a>
+            `).join('');
+
+            app.innerHTML = `
+                ${headerTop}
+                ${mainHeader}
+                <div class="container">
+                    ${hero}
+                    <div class="quick-grid">${quickCards}</div>
+
+                    <h2 class="section-title" id="layanan"><span>⚕️ Layanan Unggulan</span></h2>
+                    <div class="divider"></div>
+                    <div class="layanan-grid">${layananGrid}</div>
+
+                    <div class="maklumat"><i class="fas fa-handshake"></i> ${config.maklumat}</div>
+
+                    <h2 class="section-title" id="standar"><span>${config.standar_pelayanan.title}</span></h2>
+                    <div class="divider"></div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Klaster</th><th>Layanan</th><th>Waktu</th><th>Biaya</th></tr></thead>
+                            <tbody>${tableRows}</tbody>
+                        </table>
+                    </div>
+                    <p style="font-size:0.8rem; color:#2c5a73; margin-top:-10px;">${config.standar_pelayanan.note}</p>
+
+                    <div id="visi" style="scroll-margin-top: 100px;">
+                        <h2 class="section-title"><span>🎯 Visi & Misi</span></h2>
+                        <div class="divider"></div>
+                        <div class="visi-misi">
+                            <div>
+                                <h4><i class="fas fa-eye"></i> Visi</h4>
+                                <p style="font-size:1.05rem; margin-bottom:10px;">${config.visi_misi.visi}</p>
+                                <h4 style="margin-top:20px;"><i class="fas fa-bullseye"></i> Misi</h4>
+                                <ul>${misiList}</ul>
+                            </div>
+                            <div>
+                                <h4><i class="fas fa-gem"></i> Tata Nilai MINASATA</h4>
+                                <div class="nilai-list">${nilaiList}</div>
+                                <p style="margin-top:18px; font-style:italic; color:#1d5b78;">${config.visi_misi.motto}</p>
+                                <div style="background:#e4f0f7; padding:12px 18px; border-radius:40px; margin-top:15px;">
+                                    <i class="fas fa-file-signature"></i> <strong>Kepala Puskesmas:</strong> ${config.visi_misi.kepala_puskesmas}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== KONTAK CEPAT (tanpa form pengaduan) ===== -->
+                    <div id="kontak" style="scroll-margin-top: 100px;">
+                        <h2 class="section-title"><span>📞 Hubungi Kami</span></h2>
+                        <div class="divider"></div>
+                        <div style="background:white; border-radius:30px; padding:30px 28px; box-shadow:0 4px 16px rgba(0,0,0,0.06); margin:30px 0;">
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:25px; text-align:center;">
+                                <div>
+                                    <i class="fas fa-phone" style="font-size:2.5rem; color:var(--primary);"></i>
+                                    <h4 style="margin:10px 0 5px; color:var(--primary-dark);">Telepon</h4>
+                                    <a href="tel:${config.site.phone}" style="color:#1e3d4f; text-decoration:none; font-size:1.1rem;">${config.site.phone}</a>
+                                    <p style="font-size:0.85rem; color:#5e7e92;">Senin-Sabtu 07.30-14.00</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-envelope" style="font-size:2.5rem; color:var(--primary);"></i>
+                                    <h4 style="margin:10px 0 5px; color:var(--primary-dark);">Email</h4>
+                                    <a href="mailto:${config.site.email}" style="color:#1e3d4f; text-decoration:none; font-size:1.1rem;">${config.site.email}</a>
+                                    <p style="font-size:0.85rem; color:#5e7e92;">Balas dalam 1x24 jam</p>
+                                </div>
+                                <div>
+                                    <i class="fas fa-map-marker-alt" style="font-size:2.5rem; color:var(--primary);"></i>
+                                    <h4 style="margin:10px 0 5px; color:var(--primary-dark);">Alamat</h4>
+                                    <p style="color:#1e3d4f; font-size:0.95rem;">${config.site.address}</p>
+                                    <p style="font-size:0.85rem; color:#5e7e92;">Kode Pos 92176</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== SOSIAL MEDIA ===== -->
+                    <div class="contact-fast">
+                        <a href="https://wa.me/${config.site.phone.replace(/\D/g,'')}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="mailto:${config.site.email}" class="btn-email"><i class="fas fa-envelope"></i> Email</a>
+                        <a href="#" class="btn-ig"><i class="fab fa-instagram"></i> ${config.site.instagram}</a>
+                        <a href="#" class="btn-fb"><i class="fab fa-facebook"></i> ${config.site.facebook}</a>
+                    </div>
+                </div>
+
+                <footer class="footer">
+                    <div class="container">
+                        <div>
+                            <h5><i class="fas fa-map-marker-alt"></i> Alamat</h5>
+                            <p>${config.footer.address}</p>
+                        </div>
+                        <div>
+                            <h5><i class="fas fa-clock"></i> Jam Layanan</h5>
+                            <p>${config.footer.jam}</p>
+                        </div>
+                        <div>
+                            <h5><i class="fas fa-phone-alt"></i> Kontak</h5>
+                            ${footerKontak}
+                        </div>
+                        <div>
+                            <h5><i class="fas fa-info-circle"></i> Informasi</h5>
+                            <a href="#layanan">Layanan</a>
+                            <a href="#standar">Standar Pelayanan</a>
+                            <a href="#kontak">Kontak</a>
+                        </div>
+                        <div class="copy">${config.footer.copyright}</div>
+                    </div>
+                </footer>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderApp);
+    </script>
+</body>
+</html>

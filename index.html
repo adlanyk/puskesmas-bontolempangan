@@ -825,7 +825,7 @@
                 { icon: 'fa-procedures', name: 'Rawat Inap', desc: '24 jam' },
                 { icon: 'fa-baby-carriage', name: 'Persalinan', desc: '24 jam' },
                 { icon: 'fa-hand-holding-heart', name: 'Cek Kesehatan Gratis', desc: 'Program CKG' },
-                { icon: 'fa-bullhorn', name: 'Pengaduan Masyarakat', desc: 'Sampaikan keluhan, saran, atau masukan' },
+                { icon: 'fa-bullhorn', name: 'Rekap Pengaduan', desc: 'Sampaikan keluhan, saran, atau masukan' },
             ],
             standar_pelayanan: {
                 title: '📋 Standar Pelayanan',
@@ -1131,7 +1131,7 @@
 
             // Layanan
             let layananGrid = config.layanan.map(l => {
-                if (l.name === 'Pengaduan Masyarakat') {
+                if (l.name === 'Rekap Pengaduan') {
                     return `
                         <div class="layanan-item" style="cursor:pointer; border-color: #e74c3c;" onclick="bukaPengaduan()">
                             <i class="fas ${l.icon}" style="color:#e74c3c; background:#fde8e8;"></i>

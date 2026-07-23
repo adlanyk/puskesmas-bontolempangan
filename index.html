@@ -126,6 +126,7 @@
         .hero-stats .angka { font-size: 1.8rem; font-weight: 700; display: block; }
         .hero-stats .label { font-size: 0.85rem; opacity: 0.8; }
 
+        /* ===== HERO ILLUSTRATION - MENGGUNAKAN GAMBAR ===== */
         .hero-illustration {
             flex: 0 0 380px;
             min-width: 280px;
@@ -139,204 +140,51 @@
             width: 100%;
             max-width: 380px;
         }
-        .building-scene {
+        
+        /* Container untuk gambar */
+        .hero-image-container {
             position: relative;
             width: 100%;
-            padding-bottom: 75%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
             border-radius: 30px;
             overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-        .building {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 55%;
-            background: linear-gradient(180deg, #f0f7fa 0%, #d4e4ed 100%);
-            border-radius: 10px 10px 0 0;
-            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
-        }
-        .building::before {
-            content: '';
-            position: absolute;
-            top: -25%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30%;
-            height: 30%;
-            background: linear-gradient(180deg, #e8f0f5 0%, #c8dbe8 100%);
-            border-radius: 6px 6px 0 0;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
-        }
-        .building::after {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 55px solid transparent;
-            border-right: 55px solid transparent;
-            border-bottom: 50px solid #c0392b;
-            filter: drop-shadow(0 -2px 10px rgba(192,57,43,0.3));
-        }
-        .window {
-            position: absolute;
-            width: 15%;
-            height: 20%;
-            background: radial-gradient(ellipse at center, #87CEEB 0%, #4a90d9 100%);
-            border-radius: 4px 4px 8px 8px;
-            border: 2px solid rgba(255,255,255,0.3);
-            box-shadow: inset 0 -3px 10px rgba(0,0,0,0.1);
-        }
-        .window::after {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 10%;
-            width: 30%;
-            height: 30%;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            filter: blur(2px);
-        }
-        .window-1 { left: 8%; top: 25%; }
-        .window-2 { left: 30%; top: 25%; }
-        .window-3 { left: 52%; top: 25%; }
-        .window-4 { left: 74%; top: 25%; }
-        .window-5 { left: 18%; top: 55%; }
-        .window-6 { left: 40%; top: 55%; }
-        .window-7 { left: 62%; top: 55%; }
-        .door {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 18%;
-            height: 28%;
-            background: linear-gradient(180deg, #8B6914 0%, #5C4033 100%);
-            border-radius: 8px 8px 0 0;
             border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: inset -3px 0 10px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
         }
-        .door::before {
-            content: '';
-            position: absolute;
-            top: 35%;
-            right: 15%;
-            width: 12%;
-            height: 12%;
-            background: radial-gradient(circle, #ffd700 0%, #daa520 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
         }
-        .tree {
-            position: absolute;
-            bottom: 20%;
-            width: 12%;
-            height: 35%;
+        .hero-image-container:hover img {
+            transform: scale(1.03);
         }
-        .tree::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20%;
-            height: 20%;
-            background: linear-gradient(180deg, #8B6B4D 0%, #6B4F3A 100%);
-            border-radius: 4px;
-        }
-        .tree::after {
-            content: '';
-            position: absolute;
-            bottom: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120%;
-            height: 85%;
-            background: radial-gradient(ellipse at center, #2e7d32 0%, #1b5e20 60%, #0d3d13 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 -10px 30px rgba(46,125,50,0.2);
-        }
-        .tree-left { left: 5%; }
-        .tree-right { right: 5%; }
-        .tree-left::after { transform: translateX(-50%) scale(1.1); }
-        .tree-right::after { transform: translateX(-50%) scale(0.9); }
-        .sun {
-            position: absolute;
-            top: 5%;
-            right: 8%;
-            width: 18%;
-            height: 18%;
-            background: radial-gradient(circle at center, #fff4a3 0%, #ffd700 40%, #f9a825 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 60px rgba(255,215,0,0.3), 0 0 120px rgba(255,215,0,0.1);
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 60px rgba(255,215,0,0.3), 0 0 120px rgba(255,215,0,0.1); }
-            50% { box-shadow: 0 0 80px rgba(255,215,0,0.5), 0 0 160px rgba(255,215,0,0.2); }
-        }
-        .sun::after {
-            content: '';
-            position: absolute;
-            top: 15%;
-            left: 15%;
-            width: 30%;
-            height: 30%;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            filter: blur(4px);
-        }
-        .cloud {
-            position: absolute;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50px;
-            backdrop-filter: blur(2px);
-        }
-        .cloud::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: 20%;
-            width: 50%;
-            height: 70%;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-        .cloud-1 { top: 10%; left: 5%; width: 25%; height: 12%; animation: float-cloud 12s ease-in-out infinite; }
-        .cloud-2 { top: 25%; right: 10%; width: 18%; height: 10%; animation: float-cloud 15s ease-in-out infinite reverse; }
-        .cloud-3 { bottom: 40%; left: 2%; width: 15%; height: 8%; animation: float-cloud 18s ease-in-out infinite 3s; }
-        @keyframes float-cloud {
-            0%, 100% { transform: translateX(0px); }
-            50% { transform: translateX(30px); }
-        }
-        .grass {
+        
+        /* Overlay gradasi di atas gambar */
+        .hero-image-container .image-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 20%;
-            background: linear-gradient(180deg, rgba(46,125,50,0.3) 0%, rgba(27,94,32,0.2) 100%);
-            border-radius: 0 0 30px 30px;
+            padding: 30px 20px 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.4));
+            pointer-events: none;
         }
-        .grass::before {
-            content: '🌿🌱🌿🌱🌿';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 1.2rem;
-            letter-spacing: 10px;
-            text-align: center;
-            opacity: 0.6;
-            filter: grayscale(0.2);
+        .hero-image-container .image-overlay .image-caption {
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-align: left;
         }
+        .hero-image-container .image-overlay .image-caption i {
+            margin-right: 6px;
+        }
+        
+        /* Badge 24 Jam tetap di bawah gambar */
         .badge-24jam {
             position: absolute;
             bottom: -15px;
@@ -351,6 +199,7 @@
             box-shadow: 0 8px 30px rgba(255,215,0,0.3);
             white-space: nowrap;
             border: 2px solid rgba(255,255,255,0.3);
+            z-index: 2;
         }
         .badge-24jam i { margin-right: 8px; color: #c0392b; }
 
@@ -881,9 +730,7 @@
             .main-header .container { flex-direction: column; align-items: start; gap: 12px; }
             .nav-links { flex-wrap: wrap; }
             .badge-24jam { font-size: 0.75rem; padding: 8px 16px; }
-            .building { width: 70%; }
-            .building::after { border-left-width: 35px; border-right-width: 35px; border-bottom-width: 35px; }
-            .window { width: 12%; height: 15%; }
+            .hero-image-container { aspect-ratio: 4/3; }
             .berita-container { grid-template-columns: 1fr; }
             .berita-header { flex-direction: column; gap: 12px; align-items: stretch; }
             .berita-header .berita-filter { justify-content: center; }
@@ -942,6 +789,8 @@
                 survey_url: 'https://skm.go.id/share/instansi/1ad233bb-a825-4339-9ee9-633ecc601d10/2',
                 pdf_standar: 'Standar_Pelayanan_Puskesmas_Bontolempangan.pdf',
                 pdf_standar1: 'PENGADUAN_DAN_TINDAK_LANJUT.pdf',
+                // ===== NAMA FILE GAMBAR =====
+                hero_image: '1.jpg'
             },
             hero: {
                 title: 'Sehat Bersama Puskesmas Bontolempangan',
@@ -957,7 +806,9 @@
                     icon: 'fa-clock',
                     title: 'UGD, Rawat Inap, dan Persalinan 24 Jam',
                     subtitle: 'Termasuk hari libur'
-                }
+                },
+                // ===== KETERANGAN GAMBAR =====
+                image_caption: 'Puskesmas Bontolempangan - Melayani Dengan Hati'
             },
             quick_cards: [
                 { icon: 'fa-calendar-check', title: 'Rawat Jalan', desc: 'Senin-Sabtu 07.30-14.00 WITA' },
@@ -1115,7 +966,7 @@
             document.title = config.site.title;
             const app = document.getElementById('app');
 
-            // Header Top dengan link sosial media
+            // Header Top
             let headerTop = `
                 <div class="header-top">
                     <div class="container">
@@ -1155,7 +1006,7 @@
                 </header>
             `;
 
-            // Hero
+            // Hero - MENGGUNAKAN GAMBAR 1.jpg
             let heroStats = config.hero.stats.map(s => `
                 <div><span class="angka">${s.angka}</span><span class="label">${s.label}</span></div>
             `).join('');
@@ -1175,24 +1026,14 @@
                         </div>
                         <div class="hero-illustration">
                             <div class="illustration-container">
-                                <div class="building-scene">
-                                    <div class="sun"></div>
-                                    <div class="cloud cloud-1"></div>
-                                    <div class="cloud cloud-2"></div>
-                                    <div class="cloud cloud-3"></div>
-                                    <div class="tree tree-left"></div>
-                                    <div class="tree tree-right"></div>
-                                    <div class="building">
-                                        <div class="window window-1"></div>
-                                        <div class="window window-2"></div>
-                                        <div class="window window-3"></div>
-                                        <div class="window window-4"></div>
-                                        <div class="window window-5"></div>
-                                        <div class="window window-6"></div>
-                                        <div class="window window-7"></div>
-                                        <div class="door"></div>
+                                <!-- MENGGUNAKAN GAMBAR 1.jpg -->
+                                <div class="hero-image-container">
+                                    <img src="${config.site.hero_image}" alt="Puskesmas Bontolempangan" />
+                                    <div class="image-overlay">
+                                        <div class="image-caption">
+                                            <i class="fas fa-building"></i> ${config.hero.image_caption}
+                                        </div>
                                     </div>
-                                    <div class="grass"></div>
                                 </div>
                                 <div class="badge-24jam">
                                     <i class="fas fa-clock"></i> ${config.hero.right_badge.title}
@@ -1228,7 +1069,18 @@
                         <span class="sosmed-username">${sosmed.facebook.username}</span>
                         <span class="sosmed-followers"><i class="fas fa-users"></i> ${sosmed.facebook.followers} pengikut</span>
                     </a>
-               
+                    <a href="${sosmed.youtube.url}" target="_blank" class="sosmed-card youtube">
+                        <span class="sosmed-icon"><i class="fab fa-youtube"></i></span>
+                        <span class="sosmed-name">YouTube</span>
+                        <span class="sosmed-username">${sosmed.youtube.username}</span>
+                        <span class="sosmed-followers"><i class="fas fa-users"></i> ${sosmed.youtube.followers} subscribers</span>
+                    </a>
+                    <a href="${sosmed.twitter.url}" target="_blank" class="sosmed-card twitter">
+                        <span class="sosmed-icon"><i class="fab fa-twitter"></i></span>
+                        <span class="sosmed-name">Twitter</span>
+                        <span class="sosmed-username">${sosmed.twitter.username}</span>
+                        <span class="sosmed-followers"><i class="fas fa-users"></i> ${sosmed.twitter.followers} pengikut</span>
+                    </a>
                 </div>
             `;
 
@@ -1366,7 +1218,7 @@
                 </div>
             `;
 
-            // Contact Fast dengan semua sosial media
+            // Contact Fast
             let contactFast = `
                 <div class="contact-fast">
                     <a href="https://wa.me/${config.site.phone}" target="_blank" class="btn-wa">
@@ -1378,10 +1230,11 @@
                     <a href="${config.site.social_media.facebook.url}" target="_blank" class="btn-fb">
                         <i class="fab fa-facebook"></i> Facebook
                     </a>
+
                     <a href="mailto:${config.site.email}" class="btn-email">
                         <i class="fas fa-envelope"></i> Email
                     </a>
-                  
+                 
                 </div>
             `;
 
@@ -1441,10 +1294,10 @@
                             <a href="#berita">Berita</a>
                             <a href="#layanan">Layanan</a>
                             <a href="#standar">Standar Pelayanan</a>
-                            <a href="#sosmed">Sosial Mediasdasda</a>
+                            <a href="#sosmed">Sosial Media</a>
                             <a href="#survei">Survei</a>
                             <a href="#kontak">Kontak</a>
-                          
+                         
                         </div>
                         <div class="copy">${config.footer.copyright}</div>
                     </div>

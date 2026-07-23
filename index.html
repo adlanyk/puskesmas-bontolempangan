@@ -750,13 +750,17 @@
     <div id="app"></div>
 
     <script>
+        // ===== KONFIGURASI =====
         const config = {
             colors: { primary: '#1a7a3a', secondary: '#2e8b57' },
             site: {
                 title: 'Puskesmas Bontolempangan',
                 tagline: 'Melayani Dengan Hati',
                 address: 'Dusun Lemoa, Desa Bontolempangan, Kec. Bontolempangan, Kab. Gowa',
-                phone: '0852-9956-3337',
+                // PERBAIKAN: Nomor telepon dalam format internasional (tanpa +, tanpa spasi, tanpa 0 di depan)
+                phone: '6285299563337',
+                // Untuk tampilan di UI
+                phone_display: '0852-9956-3337',
                 email: 'pkmbontolempangan@yahoo.co.id',
                 instagram: '@Puskesmas_bontolempangan',
                 facebook: 'Puskesmasbontolempangan I',
@@ -796,7 +800,6 @@
                 { icon: 'fa-procedures', name: 'Rawat Inap', desc: '24 jam' },
                 { icon: 'fa-baby-carriage', name: 'Persalinan', desc: '24 jam' },
                 { icon: 'fa-hand-holding-heart', name: 'Cek Kesehatan Gratis', desc: 'Program CKG' },
-                // ===== TAMBAHAN LAYANAN PENGADUAN =====
                 { icon: 'fa-bullhorn', name: 'Pengaduan Masyarakat', desc: 'Sampaikan keluhan, saran, atau masukan' },
             ],
             standar_pelayanan: {
@@ -824,9 +827,9 @@
             maklumat: 'MAKLUMAT PELAYANAN : DENGAN INI KAMI BERJANJI DAN MENYATAKAN SANGGUP UNTUK MELAKSANAKAN PELAYANAN SESUAI DENGAN STANDAR PELAYANAN SERTA MEMBERIKAN PELAYANAN SESUAI DENGAN KEWAJIBAN DAN AKAN MELAKUKAN PERBAIKAN SECARA TERUS MENERUS. APABILA TIDAK MENEPATI JANJI INI KAMI SIAP MENERIMA SANKSI SESUAI DENGAN KETENTUAN PERATURAN PERUNDANG-UNDANGAN DAN/ATAU MEMBERIKAN KOMPENSASI.',
             footer: {
                 address: 'Dusun Lemoa, Desa Bontolempangan<br>Kec. Bontolempangan, Kab. Gowa<br>Kode Pos 92176',
-                jam: 'Rawat Jalan: Senin-Sabtu 07.30-14.00 WITA<br>UGD & Rawat Inap: 24 jam',
+                jam: 'Rawat Jalan: Senin-Sabtu 07.30-14.00 WITA<br> Persalinan, UGD & Rawat Inap: 24 jam',
                 kontak: [
-                    { icon: 'fa-phone', text: '0852-9956-3337 (Kapus)', link: 'tel:085299563337' },
+                    { icon: 'fa-phone', text: '0852-9956-3337 (Kapus)', link: 'tel:6285299563337' },
                     { icon: 'fa-envelope', text: 'pkmbontolempangan@yahoo.co.id', link: 'mailto:pkmbontolempangan@yahoo.co.id' },
                     { icon: 'fa-instagram', text: '@Puskesmas_bontolempangan', link: '#' },
                     { icon: 'fa-facebook', text: 'Puskesmasbontolempangan I', link: '#' },
@@ -862,36 +865,27 @@
 
         // ===== FUNGSI BUKA FORM PENGADUAN =====
         function bukaPengaduan() {
-            // Bisa diarahkan ke WhatsApp, email, atau form Google
-            // Contoh: buka WhatsApp
-            // const waNumber = config.site.phone.replace(/\D/g, '');
-            // const message = encodeURIComponent('Halo, saya ingin menyampaikan pengaduan/keluhan/saran untuk Puskesmas Bontolempangan:');
-            // window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
-              const pdfPath1 = config.site.pdf_standar1;
+            const pdfPath1 = config.site.pdf_standar1;
             window.open(pdfPath1, '_blank');
-            
-            // Atau jika mau pakai email:
-            // window.location.href = `mailto:${config.site.email}?subject=Pengaduan%20Masyarakat%20Puskesmas%20Bontolempangan&body=`;
-            
-            // Atau jika mau pakai link ke form Google:
-            // window.open('https://forms.google.com/...', '_blank');
         }
 
+        // ===== FUNGSI RENDER APP =====
         function renderApp() {
             document.title = config.site.title;
 
             const app = document.getElementById('app');
 
+            // HEADER TOP - PERBAIKAN LINK WHATSAPP
             let headerTop = `
                 <div class="header-top">
                     <div class="container">
                         <div><i class="fas fa-map-pin"></i> ${config.site.address}</div>
                         <div class="contact-icons">
-                            <a href="https://wa.me/${config.site.phone.replace(/\D/g,'')}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://wa.me/${config.site.phone}" target="_blank"><i class="fab fa-whatsapp"></i></a>
                             <a href="mailto:${config.site.email}"><i class="fas fa-envelope"></i></a>
                             <a href="#"><i class="fab fa-instagram"></i></a>
                             <a href="#"><i class="fab fa-facebook"></i></a>
-                            <span style="margin-left:8px;"><i class="fas fa-phone-alt"></i> ${config.site.phone}</span>
+                            <span style="margin-left:8px;"><i class="fas fa-phone-alt"></i> ${config.site.phone_display}</span>
                         </div>
                     </div>
                 </div>
@@ -972,9 +966,7 @@
                 </div>
             `).join('');
 
-            // ===== LAYANAN UNGGULAN DENGAN PENGADUAN =====
             let layananGrid = config.layanan.map(l => {
-                // Jika layanan adalah Pengaduan, tambahkan badge dan event klik
                 if (l.name === 'Pengaduan Masyarakat') {
                     return `
                         <div class="layanan-item" style="cursor:pointer; border-color: #e74c3c;" onclick="bukaPengaduan()">
@@ -1025,7 +1017,6 @@
                     <h2 class="section-title" id="standar"><span>${config.standar_pelayanan.title}</span></h2>
                     <div class="divider"></div>
                     
-                    <!-- TOMBOL BUKA PDF -->
                     <div style="display: flex; justify-content: flex-end;">
                         <button onclick="openPDF()" class="btn-download-pdf">
                             <i class="fas fa-file-pdf"></i> Lihat / Download PDF
@@ -1061,7 +1052,6 @@
                         </div>
                     </div>
 
-                    <!-- ===== SECTION SURVEI ===== -->
                     <div id="survei" style="scroll-margin-top: 100px;">
                         <h2 class="section-title"><span>📋 Survei Kepuasan Masyarakat</span></h2>
                         <div class="divider"></div>
@@ -1084,7 +1074,6 @@
                         </div>
                     </div>
 
-                    <!-- ===== KONTAK ===== -->
                     <div id="kontak" style="scroll-margin-top: 100px;">
                         <h2 class="section-title"><span>📞 Hubungi Kami</span></h2>
                         <div class="divider"></div>
@@ -1093,7 +1082,7 @@
                                 <div>
                                     <i class="fas fa-phone" style="font-size:2.5rem; color:var(--primary);"></i>
                                     <h4 style="margin:10px 0 5px; color:var(--primary-dark);">Telepon</h4>
-                                    <a href="tel:${config.site.phone}" style="color:#1e3d4f; text-decoration:none; font-size:1.1rem;">${config.site.phone}</a>
+                                    <a href="tel:${config.site.phone}" style="color:#1e3d4f; text-decoration:none; font-size:1.1rem;">${config.site.phone_display}</a>
                                     <p style="font-size:0.85rem; color:#5e7e92;">Senin-Sabtu 07.30-14.00</p>
                                 </div>
                                 <div>
@@ -1112,13 +1101,20 @@
                         </div>
                     </div>
 
-                    <!-- ===== SOSIAL MEDIA ===== -->
+                    <!-- CONTACT FAST - PERBAIKAN LINK WHATSAPP -->
                     <div class="contact-fast">
-                        <a href="https://wa.me/${config.site.phone.replace(/\D/g,'')}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                        <a href="mailto:${config.site.email}" class="btn-email"><i class="fas fa-envelope"></i> Email</a>
-                        <a href="#" class="btn-ig"><i class="fab fa-instagram"></i> ${config.site.instagram}</a>
-                        <a href="#" class="btn-fb"><i class="fab fa-facebook"></i> ${config.site.facebook}</a>
-                        <!-- Tombol Pengaduan Cepat -->
+                        <a href="https://wa.me/${config.site.phone}" target="_blank" class="btn-wa">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="mailto:${config.site.email}" class="btn-email">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <a href="#" class="btn-ig">
+                            <i class="fab fa-instagram"></i> ${config.site.instagram}
+                        </a>
+                        <a href="#" class="btn-fb">
+                            <i class="fab fa-facebook"></i> ${config.site.facebook}
+                        </a>
                         <a href="#" onclick="bukaPengaduan(); return false;" style="background:#e74c3c; color:white; padding:8px 20px; border-radius:60px; text-decoration:none; font-weight:500; font-size:0.9rem; display:inline-flex; align-items:center; gap:8px;">
                             <i class="fas fa-bullhorn"></i> Pengaduan
                         </a>
@@ -1169,7 +1165,6 @@
 
             // ===== GENERATE QR CODE SETELAH RENDER =====
             setTimeout(() => {
-                generateQR('qrcode-hero', config.site.survey_url, 130);
                 generateQR('qrcode-survey', config.site.survey_url, 180);
                 generateQR('qrcode-footer', config.site.survey_url, 100);
                 generateQR('qrcode-float', config.site.survey_url, 140);

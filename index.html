@@ -763,6 +763,7 @@
                 year: '2026',
                 survey_url: 'https://skm.go.id/share/instansi/1ad233bb-a825-4339-9ee9-633ecc601d10/2',
                 pdf_standar: 'Standar_Pelayanan_Puskesmas_Bontolempangan.pdf',
+                pdf_standar1: 'PENGADUAN_DAN_TINDAK_LANJUT.pdf',
             },
             hero: {
                 title: 'Sehat Bersama Puskesmas Bontolempangan',
@@ -776,7 +777,7 @@
                 ],
                 right_badge: {
                     icon: 'fa-clock',
-                    title: 'UGD & Rawat Inap 24 Jam',
+                    title: 'UGD, Rawat Inap, dan Persalinan 24 Jam',
                     subtitle: 'Termasuk hari libur'
                 }
             },
@@ -863,9 +864,11 @@
         function bukaPengaduan() {
             // Bisa diarahkan ke WhatsApp, email, atau form Google
             // Contoh: buka WhatsApp
-            const waNumber = config.site.phone.replace(/\D/g, '');
-            const message = encodeURIComponent('Halo, saya ingin menyampaikan pengaduan/keluhan/saran untuk Puskesmas Bontolempangan:');
-            window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+            // const waNumber = config.site.phone.replace(/\D/g, '');
+            // const message = encodeURIComponent('Halo, saya ingin menyampaikan pengaduan/keluhan/saran untuk Puskesmas Bontolempangan:');
+            // window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+              const pdfPath1 = config.site.pdf_standar1;
+            window.open(pdfPath1, '_blank');
             
             // Atau jika mau pakai email:
             // window.location.href = `mailto:${config.site.email}?subject=Pengaduan%20Masyarakat%20Puskesmas%20Bontolempangan&body=`;
@@ -976,7 +979,7 @@
                     return `
                         <div class="layanan-item" style="cursor:pointer; border-color: #e74c3c;" onclick="bukaPengaduan()">
                             <i class="fas ${l.icon}" style="color:#e74c3c; background:#fde8e8;"></i>
-                            <h5>${l.name} <span class="badge-pengaduan">AKTIF</span></h5>
+                            <h5>${l.name} </h5>
                             <small>${l.desc}</small>
                         </div>
                     `;
